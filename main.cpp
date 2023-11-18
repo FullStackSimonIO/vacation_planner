@@ -49,6 +49,25 @@ class Employee {
             empIndex = index;
         }
 
+        void addVacationDay() {
+            int days;
+            string date;
+            cout << "Wie viele Urlaubstage möchten Sie eingeben?\n";
+            cin >> days;
+            cout << "Sie können jetzt " << days << " verplanen. Bitte geben Sie einen Tag nach dem anderen ein und bestätigen Sie mit Enter\n";
+            for (int i = 0; i < days; i++){
+                cout << "Bitte geben Sie den Urlaubstag ein.\n";
+                cin >> date;
+                vacationDays.push_back(date);
+            }
+        }
+
+        void getVacationDays() {
+            for (int i = 0; i < vacationDays.size(); i++) {
+                cout << vacationDays[i] << endl;
+            }
+        }
+
 };
 
 int calculateVacationDays(string birthday, int degreeOfDisability) {
@@ -253,7 +272,13 @@ class Program {
             }
             else if (input == 4)
             {
+                int empNum;
                 cout << "Eingabe von Urlaubstagen..." << endl;
+                cout << "Bitte wählen Sie den Mitarbeiter anhand seiner Mitarbeiternummer\n";
+                cin >> empNum;
+                employeeList[empNum].addVacationDay();
+                employeeList[empNum].getVacationDays();
+                showHomescreen();
             }
             else if (input == 5)
             {
