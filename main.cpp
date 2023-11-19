@@ -8,13 +8,13 @@ using namespace std;
 class Employee {
     private:
         string empFirstName, empLastName, empBirthday;
-        int vacation = 30;
+        int empVacation;
         int empDegreeOfDisability, empUsedVacation, empIndex;
         vector<string> vacationDays;
 
     public:
         // Constructor Method for Employee Class
-        Employee(string firstName, string lastName, string birthday, int degreeOfDisability, int usedVacation, int vacation, int index) : empFirstName(firstName), empLastName(lastName), empBirthday(birthday), empDegreeOfDisability(degreeOfDisability), empUsedVacation(usedVacation), empIndex(index) {};
+        Employee(string firstName, string lastName, string birthday, int degreeOfDisability, int usedVacation, int vacation, int index) : empFirstName(firstName), empLastName(lastName), empBirthday(birthday), empDegreeOfDisability(degreeOfDisability), empUsedVacation(usedVacation), empVacation(vacation), empIndex(index) {};
 
         // Getter & Setter Methods for private Class Attributes
         string getFirstName() {
@@ -34,7 +34,7 @@ class Employee {
         }
         
         int getVacation() {
-            return vacation;
+            return empVacation;
         }
 
         int getUsedVacation() {
@@ -151,7 +151,7 @@ class Program {
 
         void showEmployees() {
             if (employeeList.size() > 0) {
-                for (int i = 0; i < employeeList.size(); i++) {
+                for (int i = 1; i < employeeList.size(); i++) {
                     cout << "Mitarbeiternummer: " << employeeList[i].getEmployeeIndex() << endl;
                     cout << "Vorname: " << employeeList[i].getFirstName() << endl;
                     cout << "Nachname: " << employeeList[i].getLastName() << endl;
@@ -185,7 +185,7 @@ class Program {
                             cout << "Verbuchter Urlaub: " << emp.getUsedVacation() << endl << endl << endl;
                         }
                         else {
-                            cout << "Der eingegebene Mitarbeiter existiert nicht!\n";
+                           return;
                         }
                     }
             } 
@@ -193,7 +193,7 @@ class Program {
                 cout << "Bitte geben Sie den Nachnamen des Mitarbeiters an...\n";
                 cin >> lastname;
                     for (Employee& emp : employeeList) {
-                        if (emp.getLastName() == lastname) {
+                        if (lastname == emp.getLastName()) {
                             cout << "Mitarbeiternummer: " << emp.getEmployeeIndex() << endl;
                             cout << "Vorname: " << emp.getFirstName() << endl;
                             cout << "Nachname: " << emp.getLastName() << endl;
@@ -202,7 +202,7 @@ class Program {
                             cout << "Verbuchter Urlaub: " << emp.getUsedVacation() << endl << endl << endl;
                         }
                         else {
-                            cout << "Der eingegebene Mitarbeiter existiert nicht!\n";
+                            return;
                         }
                     }   
                 }
