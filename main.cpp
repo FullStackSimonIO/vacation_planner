@@ -5,16 +5,19 @@
 
 using namespace std;
 
+///////////////////
+// EMPLOYEE CLASS//
+///////////////////
 class Employee {
     private:
         string empFirstName, empLastName, empBirthday;
-        int empVacation;
+        int yearlyEmpVacation;
         int empDegreeOfDisability, empUsedVacation, empIndex;
         vector<string> vacationDays;
 
     public:
         // Constructor Method for Employee Class
-        Employee(string firstName, string lastName, string birthday, int degreeOfDisability, int usedVacation, int vacation, int index) : empFirstName(firstName), empLastName(lastName), empBirthday(birthday), empDegreeOfDisability(degreeOfDisability), empUsedVacation(usedVacation), empVacation(vacation), empIndex(index) {};
+        Employee(string firstName, string lastName, string birthday, int degreeOfDisability, int usedVacation, int vacation, int index) : empFirstName(firstName), empLastName(lastName), empBirthday(birthday), empDegreeOfDisability(degreeOfDisability), empUsedVacation(usedVacation), yearlyEmpVacation(vacation), empIndex(index) {};
 
         // Getter & Setter Methods for private Class Attributes
         string getFirstName() {
@@ -34,7 +37,7 @@ class Employee {
         }
         
         int getVacation() {
-            return empVacation;
+            return yearlyEmpVacation;
         }
 
         int getUsedVacation() {
@@ -59,6 +62,8 @@ class Employee {
                 cout << "Bitte geben Sie den Urlaubstag ein.\n";
                 cin >> date;
                 vacationDays.push_back(date);
+                empUsedVacation += 1;
+                cout << "Sie haben " << empUsedVacation << " Tage Urlaub bereits verbucht.";
             }
         }
 
@@ -103,12 +108,14 @@ int calculateVacationDays(string birthday, int degreeOfDisability) {
             }
         }
 
-
+/////////////////
+//PROGRAM CLASS//
+/////////////////
 class Program {
     
     private:
         string Version;    
-
+    
     public:
         vector<Employee> employeeList = {Employee("Max", "Mustermann", "01.01.2000", 0, 0, 0, 0)};
         int input;
@@ -120,6 +127,10 @@ class Program {
         string getVersion() {
             return Version;
         };
+
+        ////////////////////////
+        //ADD EMPLOYEE METHOD//
+        ////////////////////////
 
         void addEmployee() {
             string firstName, lastName, birthday;
@@ -149,6 +160,11 @@ class Program {
             }
         };
 
+
+        /////////////////////////
+        //SHOW EMPLOYEES METHOD//
+        /////////////////////////
+
         void showEmployees() {
             if (employeeList.size() > 0) {
                 for (int i = 1; i < employeeList.size(); i++) {
@@ -165,6 +181,11 @@ class Program {
                 cout << "Keine Mitarbeiter in der Datenbank!!\n\n\n";
             }
         };
+
+
+        //////////////////////////
+        //SEARCH EMPLOYEE METHOD//
+        //////////////////////////
 
         void searchEmployee() {
             int searchInput, index;
@@ -185,7 +206,7 @@ class Program {
                             cout << "Verbuchter Urlaub: " << emp.getUsedVacation() << endl << endl << endl;
                         }
                         else {
-                           return;
+                           showHomescreen();
                         }
                     }
             } 
@@ -202,38 +223,53 @@ class Program {
                             cout << "Verbuchter Urlaub: " << emp.getUsedVacation() << endl << endl << endl;
                         }
                         else {
-                            return;
+                            showHomescreen();
                         }
                     }   
                 }
             }
 
+
+        //////////////////////////
+        //DELETE EMPLOYEE METHOD//
+        //////////////////////////
+
         void deleteEmployee() {
             int index, input;
             string lastname;
+
             cout << "Möchten Sie den Mitarbeiter anhand seiner Mitarbeiternummer oder anhand seines Nachnamen aus der Datenbank löschen?\n";
             cout << "1. Mitarbeiternummer\n2. Nachname\n";
             cin >> input;
+
             if (input == 1) {
                 cout << "Geben Sie die Mitarbeiternummer an...\n";
                 cin >> index;
                 for (auto emp = employeeList.begin(); emp != employeeList.end(); emp++) {
                 if (emp->getEmployeeIndex() == index) {
                     employeeList.erase(emp);
-                }
-            else if (input == 2) {
-                for (auto emp = employeeList.begin(); emp !=employeeList.end(); emp++) {
-                    if (emp->getLastName() == lastname) {
-                        employeeList.erase(emp);
+                    showHomescreen();
                     }
                 }
             }
-            }
+            else if (input == 2) {
+                cout << "Bitte geben Sie den Nachnamen des Mitarbeiters an...\n";
+                cin >> lastname;
+                for (auto emp = employeeList.begin(); emp !=employeeList.end(); emp++) {
+                    if (emp->getLastName() == lastname) {
+                        employeeList.erase(emp);
+                        showHomescreen();
+                    }
+    }
 
             }
         
         }
 
+
+        //////////////////////////
+        //SHOW HOMESCREEN METHOD//
+        //////////////////////////
 
         void showHomescreen() {
             cout << "#####################" << endl;
