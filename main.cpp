@@ -51,19 +51,22 @@ class Employee {
         void setEmployeeIndex(int index) {
             empIndex = index;
         }
-
+        ////////////////////////////
+        //ADD VACATION DAYS METHOD//
+        ////////////////////////////
         void addVacationDay() {
-            int days;
+            int days, remainingVacationDays;
             string date;
             cout << "Wie viele Urlaubstage möchten Sie eingeben?\n";
             cin >> days;
-            cout << "Sie können jetzt " << days << " verplanen. Bitte geben Sie einen Tag nach dem anderen ein und bestätigen Sie mit Enter\n";
+            cout << "Sie können jetzt " << days << " Tag(e) verplanen.\n Bitte geben Sie einen Tag nach dem anderen ein und bestätigen Sie mit Enter\n";
             for (int i = 0; i < days; i++){
                 cout << "Bitte geben Sie den Urlaubstag ein.\n";
                 cin >> date;
                 vacationDays.push_back(date);
                 empUsedVacation += 1;
-                cout << "Sie haben " << empUsedVacation << " Tage Urlaub bereits verbucht.";
+                remainingVacationDays = yearlyEmpVacation - empUsedVacation;
+                cout << "Sie haben " << empUsedVacation << " Tage Urlaub bereits verbucht.\nSie haben noch " << remainingVacationDays << " Tag(e) zum verplanen übrig.\n";
             }
         }
 
@@ -188,16 +191,16 @@ class Program {
         //////////////////////////
 
         void searchEmployee() {
-            int searchInput, index;
-            string lastname;
+            int searchInput, index, employeeIndex;
+            string lastname, employeeLastname;
             cout << "Möchten Sie den Mitarbeiter anhand seines Nachnamens oder anhand seiner Mitarbeiternummer in der Datenbank suchen?\n";
             cout << "1. Mitarbeiternummer\n2. Nachname\n";
             cin >> searchInput;
             if (searchInput == 1) {
                     cout << "Bitte geben Sie die Mitarbeiternummer ein...\n";
                     cin >> index;
-                    for (Employee& emp : employeeList) {
-                        if (emp.getEmployeeIndex() == index) {
+                    for (auto emp = employeeList.begin(); emp != employeeList.end(); emp++) {
+                        if ( == index) {
                             cout << "Mitarbeiternummer: " << emp.getEmployeeIndex() << endl;
                             cout << "Vorname: " << emp.getFirstName() << endl;
                             cout << "Nachname: " << emp.getLastName() << endl;
@@ -206,7 +209,7 @@ class Program {
                             cout << "Verbuchter Urlaub: " << emp.getUsedVacation() << endl << endl << endl;
                         }
                         else {
-                           showHomescreen();
+                           return;
                         }
                     }
             } 
@@ -214,7 +217,7 @@ class Program {
                 cout << "Bitte geben Sie den Nachnamen des Mitarbeiters an...\n";
                 cin >> lastname;
                     for (Employee& emp : employeeList) {
-                        if (lastname == emp.getLastName()) {
+                        if (emp.getLastName() == lastname) {
                             cout << "Mitarbeiternummer: " << emp.getEmployeeIndex() << endl;
                             cout << "Vorname: " << emp.getFirstName() << endl;
                             cout << "Nachname: " << emp.getLastName() << endl;
@@ -223,7 +226,7 @@ class Program {
                             cout << "Verbuchter Urlaub: " << emp.getUsedVacation() << endl << endl << endl;
                         }
                         else {
-                            showHomescreen();
+                            return;
                         }
                     }   
                 }
