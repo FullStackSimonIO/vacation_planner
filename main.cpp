@@ -13,11 +13,13 @@ class Employee {
         string empFirstName, empLastName, empBirthday;
         int yearlyEmpVacation;
         int empDegreeOfDisability, empUsedVacation, empIndex;
-        vector<string> vacationDays;
+
 
     public:
         // Constructor Method for Employee Class
         Employee(string firstName, string lastName, string birthday, int degreeOfDisability, int usedVacation, int vacation, int index) : empFirstName(firstName), empLastName(lastName), empBirthday(birthday), empDegreeOfDisability(degreeOfDisability), empUsedVacation(usedVacation), yearlyEmpVacation(vacation), empIndex(index) {};
+        vector<string> vacationDays;
+
 
         // Getter & Setter Methods for private Class Attributes
         string getFirstName() {
@@ -51,65 +53,30 @@ class Employee {
         void setEmployeeIndex(int index) {
             empIndex = index;
         }
+
+        void setYearlyVacationDays(int vacationDays) {
+            yearlyEmpVacation = vacationDays;
+        }
+
+        void setUsedVacation(int vacationDays) {
+            empUsedVacation += vacationDays;
+        }
+
+
         ////////////////////////////
         //ADD VACATION DAYS METHOD//
         ////////////////////////////
-        void addVacationDay() {
-            int days, remainingVacationDays;
-            string date;
-            cout << "Wie viele Urlaubstage möchten Sie eingeben?\n";
-            cin >> days;
-            cout << "Sie können jetzt " << days << " Tag(e) verplanen.\n Bitte geben Sie einen Tag nach dem anderen ein und bestätigen Sie mit Enter\n";
-            for (int i = 0; i < days; i++){
-                cout << "Bitte geben Sie den Urlaubstag ein.\n";
-                cin >> date;
-                vacationDays.push_back(date);
-                empUsedVacation += 1;
-                remainingVacationDays = yearlyEmpVacation - empUsedVacation;
-                cout << "Sie haben " << empUsedVacation << " Tage Urlaub bereits verbucht.\nSie haben noch " << remainingVacationDays << " Tag(e) zum verplanen übrig.\n";
-            }
-        }
 
         void getVacationDays() {
-            for (int i = 0; i < vacationDays.size(); i++) {
+            for (int i = 0; i <= vacationDays.size(); i++) {
                 cout << vacationDays[i] << endl;
             }
         }
 
 };
 
-int calculateVacationDays(string birthday, int degreeOfDisability) {
 
-            string year = birthday.substr(birthday.length() -4,4);
-            int birthyear = stoi(year);
-            string month = birthday.substr(birthday.length() -7,2);
-            int birthmonth = stoi(month);
-            string day = birthday.substr(birthday.length() -10,2);
-            int dayOfBirth = stoi(day);
 
-            time_t now = time(0);
-            tm* localdate = localtime(&now);
-
-            int currentYear = localdate->tm_year + 1900;
-            int age = currentYear - birthyear;
-
-            if (birthmonth > localdate->tm_mon + 1 || (birthmonth == localdate->tm_mon + 1 && dayOfBirth > localdate->tm_mday)) {
-                age--;
-            }
-
-            if (age < 50 && degreeOfDisability < 50) {
-                return 30;
-            }
-            else if (age > 50 && degreeOfDisability < 50) {
-                return 32;
-            }
-            else if (age < 50 && degreeOfDisability > 50) {
-                return 35;
-            }
-            else if (age > 50 && degreeOfDisability > 50) {
-                return 37;
-            }
-        }
 
 /////////////////
 //PROGRAM CLASS//
@@ -197,40 +164,34 @@ class Program {
             cout << "1. Mitarbeiternummer\n2. Nachname\n";
             cin >> searchInput;
             if (searchInput == 1) {
-                    cout << "Bitte geben Sie die Mitarbeiternummer ein...\n";
-                    cin >> index;
-                    for (auto emp = employeeList.begin(); emp != employeeList.end(); emp++) {
-                        if ( == index) {
-                            cout << "Mitarbeiternummer: " << emp.getEmployeeIndex() << endl;
-                            cout << "Vorname: " << emp.getFirstName() << endl;
-                            cout << "Nachname: " << emp.getLastName() << endl;
-                            cout << "Geburtsdatum: " << emp.getBirthday() << endl;
-                            cout << "Grad der Behinderung: " << emp.getDegreeOfDisability() << endl;
-                            cout << "Verbuchter Urlaub: " << emp.getUsedVacation() << endl << endl << endl;
-                        }
-                        else {
-                           return;
-                        }
+                cout << "Bitte geben Sie die Mitarbeiternummer ein...\n";
+                cin >> index;
+                for (Employee emp : employeeList) {
+                    if (emp.getEmployeeIndex() == index) {
+                        cout << "Mitarbeiternummer: " << emp.getEmployeeIndex() << endl;
+                        cout << "Vorname: " << emp.getFirstName() << endl;
+                        cout << "Nachname: " << emp.getLastName() << endl;
+                        cout << "Geburtsdatum: " << emp.getBirthday() << endl;
+                        cout << "Grad der Behinderung: " << emp.getDegreeOfDisability() << endl;
+                        cout << "Verbuchter Urlaub: " << emp.getUsedVacation() << endl << endl << endl;
                     }
+                }
             } 
             else if (searchInput == 2) {
                 cout << "Bitte geben Sie den Nachnamen des Mitarbeiters an...\n";
                 cin >> lastname;
-                    for (Employee& emp : employeeList) {
-                        if (emp.getLastName() == lastname) {
-                            cout << "Mitarbeiternummer: " << emp.getEmployeeIndex() << endl;
-                            cout << "Vorname: " << emp.getFirstName() << endl;
-                            cout << "Nachname: " << emp.getLastName() << endl;
-                            cout << "Geburtsdatum: " << emp.getBirthday() << endl;
-                            cout << "Grad der Behinderung: " << emp.getDegreeOfDisability() << endl;
-                            cout << "Verbuchter Urlaub: " << emp.getUsedVacation() << endl << endl << endl;
-                        }
-                        else {
-                            return;
-                        }
-                    }   
-                }
+                for (Employee emp : employeeList) {
+                    if (emp.getLastName() == lastname) {
+                        cout << "Mitarbeiternummer: " << emp.getEmployeeIndex() << endl;
+                        cout << "Vorname: " << emp.getFirstName() << endl;
+                        cout << "Nachname: " << emp.getLastName() << endl;
+                        cout << "Geburtsdatum: " << emp.getBirthday() << endl;
+                        cout << "Grad der Behinderung: " << emp.getDegreeOfDisability() << endl;
+                        cout << "Verbuchter Urlaub: " << emp.getUsedVacation() << endl << endl << endl;
+                    }
+                }   
             }
+        }
 
 
         //////////////////////////
@@ -263,12 +224,126 @@ class Program {
                         employeeList.erase(emp);
                         showHomescreen();
                     }
-    }
+                }
 
             }
         
         }
 
+
+        ///////////////////////////
+        //CALCULATE VACATION DAYS//
+        ///////////////////////////
+
+        int calculateVacationDays() {
+            int searchInput, index, employeeIndex;
+            string lastname, employeeLastname;
+
+            cout << "Möchten Sie den Mitarbeiter anhand seines Nachnamens oder anhand seiner Mitarbeiternummer in der Datenbank suchen?\n";
+            cout << "1. Mitarbeiternummer\n2. Nachname\n";
+            cin >> searchInput;
+            if (searchInput == 1) {
+                cout << "Bitte geben Sie die Mitarbeiternummer ein...\n";
+                cin >> index;
+                // Loop through employee vector and search for Index
+                for (Employee emp : employeeList) {
+                    if (emp.getEmployeeIndex() == index) {
+                        string birthday = emp.getBirthday();
+                        int degreeOfDisability = emp.getDegreeOfDisability();
+
+                        // Calculate age function
+                        string year = birthday.substr(birthday.length() -4,4);
+                        int birthyear = stoi(year);
+                        string month = birthday.substr(birthday.length() -7,2);
+                        int birthmonth = stoi(month);
+                        string day = birthday.substr(birthday.length() -10,2);
+                        int dayOfBirth = stoi(day);
+                        time_t now = time(0);
+                        tm* localdate = localtime(&now);
+                        int currentYear = localdate->tm_year + 1900;
+                        int age = currentYear - birthyear;
+                        if (birthmonth > localdate->tm_mon + 1 || (birthmonth == localdate->tm_mon + 1 && dayOfBirth > localdate->tm_mday)) {
+                            age--;
+                        }
+                        
+                        // Checking degree of disability and current age to calculate vacation days
+                        if (age < 50 && degreeOfDisability < 50) {
+                            emp.setYearlyVacationDays(30);
+                        }
+                        else if (age > 50 && degreeOfDisability < 50) {
+                           emp.setYearlyVacationDays(32);
+                        }
+                        else if (age < 50 && degreeOfDisability > 50) {
+                            emp.setYearlyVacationDays(35);
+                        }
+                        else if (age > 50 && degreeOfDisability > 50) {
+                            emp.setYearlyVacationDays(37);
+                        }
+                    }
+                }
+            } 
+            else if (searchInput == 2) {
+                cout << "Bitte geben Sie den Nachnamen des Mitarbeiters an...\n";
+                cin >> lastname;
+                    // Loop through employee vector and search for lastname
+                    for (Employee emp : employeeList) {
+                        if (emp.getEmployeeIndex() == index) {
+                        string birthday = emp.getBirthday();
+                        int degreeOfDisability = emp.getDegreeOfDisability();
+                        string year = birthday.substr(birthday.length() -4,4);
+                        int birthyear = stoi(year);
+                        string month = birthday.substr(birthday.length() -7,2);
+                        int birthmonth = stoi(month);
+                        string day = birthday.substr(birthday.length() -10,2);
+                        int dayOfBirth = stoi(day);
+
+                        time_t now = time(0);
+                        tm* localdate = localtime(&now);
+
+                        int currentYear = localdate->tm_year + 1900;
+                        int age = currentYear - birthyear;
+
+                        if (birthmonth > localdate->tm_mon + 1 || (birthmonth == localdate->tm_mon + 1 && dayOfBirth > localdate->tm_mday)) {
+                            age--;
+                        }
+
+                        if (age < 50 && degreeOfDisability < 50) {
+                            emp.setYearlyVacationDays(30);
+                        }
+                        else if (age > 50 && degreeOfDisability < 50) {
+                           emp.setYearlyVacationDays(32);
+                        }
+                        else if (age < 50 && degreeOfDisability > 50) {
+                            emp.setYearlyVacationDays(35);
+                        }
+                        else if (age > 50 && degreeOfDisability > 50) {
+                            emp.setYearlyVacationDays(37);
+                        }
+                    }
+                }
+            }   
+        }
+        
+
+        ////////////////////////////
+        //ADD VACATION DAYS METHOD//
+        ////////////////////////////
+
+        void addVacationDay() {
+            int days, remainingVacationDays;
+            string date;
+            cout << "Wie viele Urlaubstage möchten Sie eingeben?\n";
+            cin >> days;
+            cout << "Sie können jetzt " << days << " Tag(e) verplanen.\nBitte geben Sie einen Tag nach dem anderen ein und bestätigen Sie mit Enter\n";
+            for (Employee emp : employeeList){
+                cout << "Bitte geben Sie den Urlaubstag ein.\n";
+                cin >> date;
+                emp.vacationDays.push_back(date);
+                emp.setUsedVacation(days);
+                remainingVacationDays = emp.getVacation() - emp.getUsedVacation();
+                cout << "Sie haben " << emp.getUsedVacation() << " Tage Urlaub bereits verbucht.\nSie haben noch " << remainingVacationDays << " Tag(e) zum verplanen übrig.\n";
+            }
+        }
 
         //////////////////////////
         //SHOW HOMESCREEN METHOD//
@@ -322,7 +397,7 @@ class Program {
             else if (input == 5)
             {
                 cout << "Resturlaub abfragen..." << endl;
-                cout << calculateVacationDays("18.06.1998", 0) << endl;
+                cout <<  << endl;
             }
             else if (input == 6)
             {

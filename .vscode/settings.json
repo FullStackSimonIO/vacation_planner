@@ -10,6 +10,11 @@
     "ratio": "cpp",
     "tuple": "cpp",
     "variant": "cpp",
-    "string": "cpp"
+    "string": "cpp",
+    "vector": "cpp",
+    "ostream": "cpp",
+    "functional": "cpp",
+    "iosfwd": "cpp",
+    "version": "cpp"
   }
 }
