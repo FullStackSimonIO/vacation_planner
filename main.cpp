@@ -58,8 +58,12 @@ class Employee {
             yearlyEmpVacation = vacationDays;
         }
 
-        void setUsedVacation(int vacationDays) {
-            empUsedVacation += vacationDays;
+        void setUsedVacation() {
+            empUsedVacation += 1;
+        }
+
+        void setYearlyVacation(int vacationDays) {
+            yearlyEmpVacation = vacationDays;
         }
 
 
@@ -284,11 +288,11 @@ class Program {
                     cout << "Wie viele Urlaubstage möchten Sie eingeben?\n";
                     cin >> days;
                     cout << "Sie können jetzt " << days << " Tag(e) verplanen.\nBitte geben Sie einen Tag nach dem anderen ein und bestätigen Sie mit Enter\n";
-                    for (Employee emp : employeeList){
+                    for (int i = 0; i <= days; i++){
                         cout << "Bitte geben Sie den Urlaubstag ein.\n";
                         cin >> date;
                         emp.vacationDays.push_back(date);
-                        emp.setUsedVacation(days);
+                        emp.setUsedVacation(); 
                         remainingVacationDays = emp.getVacation() - emp.getUsedVacation();
                         cout << "Sie haben " << emp.getUsedVacation() << " Tage Urlaub bereits verbucht.\nSie haben noch " << remainingVacationDays << " Tag(e) zum verplanen übrig.\n";
                         }
@@ -307,7 +311,7 @@ class Program {
                             cout << "Bitte geben Sie den Urlaubstag ein.\n";
                             cin >> date;
                             emp.vacationDays.push_back(date);
-                            emp.setUsedVacation(days);
+                            emp.setUsedVacation();
                             remainingVacationDays = emp.getVacation() - emp.getUsedVacation();
                             cout << "Sie haben " << emp.getUsedVacation() << " Tage Urlaub bereits verbucht.\nSie haben noch " << remainingVacationDays << " Tag(e) zum verplanen übrig.\n";
                         }
