@@ -17,7 +17,7 @@ class Employee {
 
 
     public:
-        // Constructor Method for Employee Class
+        // Constructor Method for Employee Object
         Employee(string firstName, string lastName, string birthday, int degreeOfDisability, int usedVacation, int vacation, int index) : empFirstName(firstName), empLastName(lastName), empBirthday(birthday), empDegreeOfDisability(degreeOfDisability), empUsedVacation(usedVacation), yearlyEmpVacation(vacation), empIndex(index) {};
 
 
@@ -98,6 +98,7 @@ class Program {
         string Version;    
     
     public:
+        // Vector for employees with test object
         vector<Employee> employeeList = {Employee("Max", "Mustermann", "01.01.2000", 0, 0, 0, 0)};
         int input;
 
@@ -115,6 +116,7 @@ class Program {
         //ADD EMPLOYEE METHOD//
         ////////////////////////
 
+        // The method generates a new employee object with input data and pushes the employee object to the database
         void addEmployee() {
             string firstName, lastName, birthday;
             int vacation = 30;
@@ -150,6 +152,7 @@ class Program {
         //SHOW EMPLOYEES METHOD//
         /////////////////////////
 
+        // The method logs all the employee objects to the console 
         void showEmployees() {
             if (employeeList.size() > 0) {
                 for (int i = 1; i < employeeList.size(); i++) {
@@ -173,6 +176,7 @@ class Program {
         //SEARCH EMPLOYEE METHOD//
         //////////////////////////
 
+        // The method locates a specific employee from the database and logs the employee data to the console
         void searchEmployee() {
             int searchInput, index, employeeIndex;
             string lastname, employeeLastname;
@@ -216,6 +220,7 @@ class Program {
         //DELETE EMPLOYEE METHOD//
         //////////////////////////
 
+        // The method locates a specific employee and deletes it from the database
         void deleteEmployee() {
             int index, input;
             string lastname;
@@ -254,6 +259,7 @@ class Program {
         //CALCULATE VACATION DAYS//
         ///////////////////////////
 
+        // The method takes the birthday and the degree of disability of an employee and returns the yearly vacation the employee can use
         int calculateVacationDays(string birthday, int degreeOfDisability) {        
                         // Calculate age function
                         string year = birthday.substr(birthday.length() -4,4);
@@ -291,6 +297,7 @@ class Program {
         //ADD VACATION DAYS METHOD//
         ////////////////////////////
 
+        // The method is used to input an amount of vacation days, takes the days as input and pushes it to a vector to save the vacation days
         void addVacationDay() {
             int searchInput, index, employeeIndex, days, remainingVacationDays;
             string lastname, employeeLastname, date;
@@ -318,6 +325,7 @@ class Program {
         //CHECK REMAINING VACATION METHOD//
         ///////////////////////////////////
 
+        // The Method is used to to calculate the remaining vacation days an employee has
         void checkRemainingVacation() {
             int index, employeeIndex, days, remainingVacationDays;
             string date;
@@ -340,6 +348,7 @@ class Program {
         //SHOW HOMESCREEN METHOD//
         //////////////////////////
 
+        // This is the base method for the program, combining all the other methods into a Command Line Interface for a good User Experience
         void showHomescreen() {
             cout << "#####################" << endl;
             cout << "###URLAUBSPLANUNG:###" << endl;
