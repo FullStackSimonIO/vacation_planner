@@ -59,7 +59,12 @@ class Employee {
                 cout << vacationDays[i] << endl;
             }
         }
+
+        void pushVacationDayVector(string date) {
+            vacationDays.push_back(date);
+        }
         
+
 
         // Setter Methods
         void setEmployeeIndex(int index) {
@@ -78,9 +83,7 @@ class Employee {
             yearlyEmpVacation = vacationDays;
         }
 
-        void pushVacationDayVector(string date) {
-            vacationDays.push_back(date);
-        }
+
     };
 
 
@@ -134,6 +137,7 @@ class Program {
             Employee newEmp(firstName, lastName, birthday, degreeOfDisability, usedVacation, vacation, index);
             employeeList.push_back(newEmp);
 
+            // Increment operation for generating an index
             cout << "Mitarbeiternummer wird zugewiesen...\n\n\n";
             for (int i = 0; i < employeeList.size(); i++) {
                 employeeList[i].setEmployeeIndex(i);
@@ -172,6 +176,7 @@ class Program {
         void searchEmployee() {
             int searchInput, index, employeeIndex;
             string lastname, employeeLastname;
+
             cout << "Möchten Sie den Mitarbeiter anhand seines Nachnamens oder anhand seiner Mitarbeiternummer in der Datenbank suchen?\n";
             cout << "1. Mitarbeiternummer\n2. Nachname\n";
             cin >> searchInput;
@@ -309,7 +314,9 @@ class Program {
 
 
 
-
+        ///////////////////////////////////
+        //CHECK REMAINING VACATION METHOD//
+        ///////////////////////////////////
 
         void checkRemainingVacation() {
             int index, employeeIndex, days, remainingVacationDays;
@@ -319,14 +326,15 @@ class Program {
                 cin >> index;
                 if (index > 0 && index < employeeList.size()) {
                     const auto& vacationDays = employeeList[index].getVacationDayVector();
-                    cout << "Urlaubstage für Mitarbeiter " << employeeList[index].getLastName() << employeeList[index].getFirstName() << ":" << endl;
+                    cout << "Urlaubstage für Mitarbeiter " << employeeList[index].getLastName() << " " << employeeList[index].getFirstName() << ":" << endl;
                     for (const auto& day : vacationDays) {
                         cout << day << endl;
                     }
-                    cout << "Der Mitarbeiter hat noch " << employeeList[index].getVacation() - employeeList[index].getUsedVacation() << " Tag(e) Urlaub zum verbuchen übrig.";
+                    cout << "Der Mitarbeiter hat noch " << employeeList[index].getVacation() - employeeList[index].getUsedVacation() << " Tag(e) Urlaub zum verbuchen übrig.\n\n\n";
                 }
             }
         
+
 
         //////////////////////////
         //SHOW HOMESCREEN METHOD//
@@ -347,6 +355,8 @@ class Program {
             cout << "Bitte wählen Sie Ihre Funktion aus..." << endl;
 
             cin >> input;
+
+            // Command Line Interface
             if (input == 1) 
             {
                 cout << "Mitarbeiter zeigen...\n" << endl;
@@ -391,11 +401,13 @@ class Program {
             else 
             {
                 cout << "Error\n";
+                return;
             }
         }
 };
 
 
+// Main function initialising program object with Command Line Interface
 int main() {
     Program version1("1.0.0");
     version1.showHomescreen();
